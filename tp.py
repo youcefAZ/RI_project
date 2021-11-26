@@ -98,7 +98,7 @@ def weighted_terms(n):
             for word in data:
                 freq=data.count(word)
                 ni=freq_term(word,n)
-                weighted_freq[word,i]=(freq/max)*math.log(n/ni,10)+1
+                weighted_freq[word,i]=(freq/max)*math.log(n/ni+1,10)
     
     return weighted_freq
 
