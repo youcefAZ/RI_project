@@ -103,13 +103,33 @@ def weighted_terms(n):
     return weighted_freq
 
 
+def get_weighted_term_list(weighted_list, doc):
+    term_list={} 
+    for (key,d) in weighted_list:
+        if d==doc:
+            term_list[key]=weighted_list[key,d]
+    
+    return term_list
+
+
+def get_weighted_doc_list(weighted_list, term):
+    doc_list={}
+    for (key,d) in weighted_list:
+        if key==term:
+            doc_list[d]=weighted_list[key,d]
+    
+    return doc_list
+
 
 
 if __name__ == "__main__":
     #poids(ti, dj) = (freq(ti,dj)/Max(freq(t, dj))*Log((N/ni) +1)
     freq=all_freq(3)
-    print(freq[3]['vieux'])
-
     freq_term("simple",3)
 
-    print(weighted_terms(3))
+    wt=weighted_terms(3)
+
+    print(get_weighted_term_list(wt,2))
+    print(get_weighted_doc_list(wt,'préparation'))
+    
+
