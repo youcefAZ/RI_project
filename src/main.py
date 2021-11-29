@@ -45,8 +45,9 @@ def tokenization(docs) :
         
         title = tp.Stopword_elimination(title)
         resume = tp.Stopword_elimination(resume)
+        content=title+resume
 
-        detailed_doc[key]={'title':title,'resume':resume}
+        detailed_doc[key]=content
         
     return detailed_doc
         
