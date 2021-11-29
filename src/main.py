@@ -43,26 +43,13 @@ def tokenization(docs) :
         title=doc[key]['title']
         resume=doc[key]['resume']
         
-        title = stopword_elimination(title)
-        resume = stopword_elimination(resume)
+        title = tp.Stopword_elimination(title)
+        resume = tp.Stopword_elimination(resume)
 
         detailed_doc[key]={'title':title,'resume':resume}
         
     return detailed_doc
         
-
-def stopword_elimination(text):
-    # str -> list
-    word_list = []
-
-    text=tp.eliminate_punc(text)
-
-    words = text.split()
-    for word in words:
-        if word.lower() not in stopword_list:
-            word_list.append(word.lower())
-    return word_list
-
 
 
 doc=read_data()
