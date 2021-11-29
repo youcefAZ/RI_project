@@ -1,7 +1,7 @@
 import math
 
 # ouverture du fichier stopwords_fr
-stopwordsfile = "stopwords_fr.txt"
+stopwordsfile = "stopwords/stopwords_fr.txt"
 path='files'
 # Récupération de la liste des mots vides
 stopwords_list = open(stopwordsfile, "r", encoding="utf-8").read().splitlines()
@@ -10,13 +10,18 @@ ponctuation_list = ['?', '.', '!', '<', '>', '}', '{', ':', '(', ')', '[', ']', 
                     '#', '+', '_', '-', '*', '/', '=']
 
 
-# Eliminer les mots vides et la ponctuation
+#eliminer ponctuation
+def eliminate_punc(text):
+    for character in ponctuation_list:
+        text = text.replace(character, ' ')
+    return text
 
+
+# Eliminer les mots vides et la ponctuation
 def Stopword_elimination(text):
     word_list = []
     # Eliminer la punctuation
-    for character in ponctuation_list:
-        text = text.replace(character, ' ')
+    text=eliminate_punc(text)
 
     # str -> list
     words = text.split()
