@@ -1,4 +1,6 @@
 import tp
+import math
+import copy
 
 stopwordsfile='stopwords/stopwords_eng.txt'
 datapath='data/cacm.all'
@@ -63,8 +65,8 @@ def idf(data):
                 doc_fr={}
                 for d2 in data :
                     if element in data[d2]:
-                        doc_fr[d2]={'freq':data[d2][element]}
-                idf_list[element]={'doc':doc_fr}
+                        doc_fr[d2]=data[d2][element]
+                idf_list[element]=doc_fr
     return idf_list
                 
 
@@ -74,12 +76,30 @@ def get_doc_details(data_doc,di):
 def get_term_details(data_term,term):
     return data_term[term]
 
+def maxFreq(dj):
+    all_values = dj.values()
+    max_value = max(all_values)
+    return max_value
+
+
+def idf_ponderation(idfL,n,list_doc):
+
+    for term in idfL:
+        ni=len(term)
+        for doc in idfL[term]:
+            max=maxFreq(list_doc[str(doc)])
+            idfL[term][doc]=(idfL[term][doc]/max)*math.log(n/ni+1,10)
+    
+    return idfL
+
 
 
 doc=read_data()
 list_doc=tokenization(doc)
 idf_list=idf(list_doc)
+idf_clone = copy.deepcopy(idf_list)
 
-print(get_term_details(idf_list,'isolating'))
-print(get_doc_details(list_doc,'3000'))
+weighted_idf=idf_ponderation(idf_clone,len(list_doc),list_doc)
+
+print(weighted_idf)
 
