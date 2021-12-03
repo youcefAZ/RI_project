@@ -82,13 +82,13 @@ def maxFreq(dj):
     return max_value
 
 
-def idf_ponderation(idfL,n,list_doc):
+def idf_ponderation(idfL,list_doc):
 
     for term in idfL:
         ni=len(term)
         for doc in idfL[term]:
             max=maxFreq(list_doc[str(doc)])
-            idfL[term][doc]=(idfL[term][doc]/max)*math.log(n/ni+1,10)
+            idfL[term][doc]=(idfL[term][doc]/max)*math.log(len(list_doc)/ni+1,10)
     
     return idfL
 
@@ -99,7 +99,7 @@ list_doc=tokenization(doc)
 idf_list=idf(list_doc)
 idf_clone = copy.deepcopy(idf_list)
 
-weighted_idf=idf_ponderation(idf_clone,len(list_doc),list_doc)
+weighted_idf=idf_ponderation(idf_clone,list_doc)
 
 print(weighted_idf)
 
