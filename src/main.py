@@ -94,12 +94,53 @@ def idf_ponderation(idfL,list_doc):
 
 
 
-doc=read_data()
-list_doc=tokenization(doc)
-idf_list=idf(list_doc)
-idf_clone = copy.deepcopy(idf_list)
+def replace_logical_by_mathematical_operators(request):
+    request = request.replace("and", "*").replace("or", "+")
+    partitioned_request = list(request.partition("not"))
+    for i in range(0, len(partitioned_request)-1):
+        if partitioned_request[i] == "not":
+            partitioned_request[i] = "int(not"
+            partitioned_request[i+1] = partitioned_request[i+1] + ")"
+    
+    temp_request = ""
+    for i in range(0, len(partitioned_request)):
+        temp_request += partitioned_request[i]
+    return temp_request
 
-weighted_idf=idf_ponderation(idf_clone,list_doc)
 
-print(weighted_idf)
+def boolean_model(request:str,list_doc):
+    request = request.lower()
+    operator_list={'and','or','not','(',')'}
+    request_list = request.split()
+    termes_in_doc = {}
+    pertinent_docs = []
+
+    for i in range(1,len(list_doc)+1):
+        for term in request_list:
+            if term not in operator_list and term in list_doc[str(i)].keys():
+                termes_in_doc[term] = 1
+            else:
+                termes_in_doc[term] = 0
+
+        temp_request = request
+        for term in termes_in_doc.keys():
+            if term not in operator_list:
+                temp_request = temp_request.replace(term, str(termes_in_doc[term]))
+        
+        if eval(replace_logical_by_mathematical_operators(temp_request)):
+            pertinent_docs.append(i)
+
+    return pertinent_docs
+
+
+if __name__ == '__main__':
+    doc=read_data()
+    list_doc=tokenization(doc)
+    #idf_list=idf(list_doc)
+    #idf_clone = copy.deepcopy(idf_list)
+    #weighted_idf=idf_ponderation(idf_clone,list_doc)
+
+    print(boolean_model('radicals and not ( te or goal )',list_doc))
+    
+
 
