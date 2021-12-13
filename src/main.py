@@ -136,11 +136,14 @@ def boolean_model(request:str,list_doc):
 if __name__ == '__main__':
     doc=read_data()
     list_doc=tokenization(doc)
-    #idf_list=idf(list_doc)
-    #idf_clone = copy.deepcopy(idf_list)
-    #weighted_idf=idf_ponderation(idf_clone,list_doc)
+    idf_list=idf(list_doc)
+    idf_clone = copy.deepcopy(idf_list)
+    weighted_idf=idf_ponderation(idf_clone,list_doc)
 
-    print(boolean_model('radicals and not ( te or goal )',list_doc))
+    print(list_doc)
+    print('----------------\n'*5,idf_list)
+    print('----------------\n',weighted_idf)
+    print('-----------------\n',boolean_model('goal or parameters',list_doc))
     
 
 
