@@ -3,3 +3,5 @@ files/
 *__pycache__/
 env/
 renv/
+.qt_for_python/
+.vscode/
