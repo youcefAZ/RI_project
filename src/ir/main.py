@@ -3,7 +3,7 @@ import math
 import copy
 
 stopwordsfile='stopwords/stopwords_eng.txt'
-datapath='data/cacm.all'
+datapath='files/cacm.all'
 stopword_list=open(stopwordsfile, "r", encoding="utf-8").read().splitlines()
 
 #from file, makes dictionarry with doc_id as its key, and
