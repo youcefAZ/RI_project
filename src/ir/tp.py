@@ -33,6 +33,12 @@ def Stopword_elimination(text):
 
 # Dictionnaire des fréquences
 def dict_freq(word_list):
+    """Takes a word_list and outups a dictionary 
+
+    
+    Returns 
+        {word:frequency,word:frequencey}
+    """
     frequence_dict = {} 
     for word in word_list:
         if word not in frequence_dict:
