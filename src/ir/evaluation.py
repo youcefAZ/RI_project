@@ -63,6 +63,23 @@ def read_qrels():
     return pertinent_terms_in_request
             
 
+def precision(pertinent_docs, selected_docs):
+    counter=0 #pertinent_selected_docs
+    for pert_doc in pertinent_docs:
+        if pert_doc in selected_docs:
+            counter+=1
+    
+    return (counter/len(selected_docs))
+
+
+def recall(pertinent_docs,selected_docs):
+    counter=0 #pertinent_selected_docs
+    for pert_doc in pertinent_docs:
+        if pert_doc in selected_docs:
+            counter+=1
+    
+    return (counter/len(pertinent_docs))
+    
 
 if __name__ == '__main__':
     print(read_query())

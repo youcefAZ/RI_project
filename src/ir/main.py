@@ -5,6 +5,7 @@ import json
 from boolean_model import *
 from vectorial_model import *
 from utilities import *
+from evaluation import *
 
 stopwordsfile='stopwords/stopwords_eng.txt'
 datapath='data/cacm.all'
@@ -160,14 +161,21 @@ def main():
     doc=read_data()
     list_doc=tokenization(doc)
     idf_list=idf(list_doc)
-    idf_clone = copy.deepcopy(idf_list)
-    weighted_idf=idf_ponderation(idf_clone,list_doc)
+    #idf_clone = copy.deepcopy(idf_list)
+    #weighted_idf=idf_ponderation(idf_clone,list_doc)
 
-    print(list_doc)
-    print('----------------\n'*5,print_dico(idf_list))
-    print('----------------\n',print_dico(weighted_idf))
-    print('-----------------\n',boolean_model('goal or parameters',list_doc))
+    #print(list_doc)
+    #print('----------------\n'*5,print_dico(idf_list))
+    #print('----------------\n',print_dico(weighted_idf))
+    #print('-----------------\n',boolean_model('goal or parameters',list_doc))
+
+    request_list=read_query()
+    pertinent_list=read_qrels()
+    rsv=vectorial_model(idf_list,list_doc,request_list[1])
     
+    print('PRECISION : ',precision(pertinent_list[1],rsv.keys()))
+    print('RECALL : ',recall(pertinent_list[1],rsv.keys()))
+
 
 if __name__ == '__main__':
     main()
