@@ -1,5 +1,6 @@
 """Some Useful functions."""
 import pickle
+import json
 
 
 def print_dico(dico):
