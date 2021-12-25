@@ -188,12 +188,15 @@ def multi_test(request_list,idf_list,list_doc,pertinent_list):
 
 
 def main():
-    doc=read_data()
+    '''doc=read_data()
     list_doc=tokenization(doc)
     idf_list=idf(list_doc)
     idf_clone = copy.deepcopy(idf_list)
     weighted_idf=idf_ponderation(idf_clone,list_doc)
-
+    '''
+    list_doc=openPkl('list_doc.pkl','pickle/')
+    idf_list=openPkl('idf_list.pkl','pickle/')
+    weighted_idf=openPkl('weighted_idf.pkl','pickle/')
     #print(list_doc)
     #print('----------------\n'*5,print_dico(idf_list))
     #print('----------------\n',print_dico(weighted_idf))
