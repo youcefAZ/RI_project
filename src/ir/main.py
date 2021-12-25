@@ -171,12 +171,12 @@ def main():
 
     request_list=read_query()
     pertinent_list=read_qrels()
-    rsv=vectorial_model(idf_list,list_doc,request_list[1],1)
+    rsv=vectorial_model(idf_list,list_doc,request_list[10],4)
     
     print('RESULTAT : ',rsv)
-    print('PERTINENT DOCS : ',pertinent_list[1])
-    print('PRECISION : ',precision(pertinent_list[1],rsv.keys()))
-    print('RECALL : ',recall(pertinent_list[1],rsv.keys()))
+    print('PERTINENT DOCS : ',pertinent_list[10])
+    print('PRECISION : ',precision(pertinent_list[10],rsv.keys()))
+    print('RECALL : ',recall(pertinent_list[10],rsv.keys()))
     #for request 1, best threshold is > 11
 
 if __name__ == '__main__':

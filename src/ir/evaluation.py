@@ -65,6 +65,9 @@ def read_qrels():
 
 def precision(pertinent_docs, selected_docs):
     counter=0 #pertinent_selected_docs
+    if len(selected_docs)==0:
+        return 0
+    
     for pert_doc in pertinent_docs:
         if pert_doc in selected_docs:
             counter+=1
@@ -74,6 +77,9 @@ def precision(pertinent_docs, selected_docs):
 
 def recall(pertinent_docs,selected_docs):
     counter=0 #pertinent_selected_docs
+    if len(selected_docs)==0:
+        return 0
+        
     for pert_doc in pertinent_docs:
         if pert_doc in selected_docs:
             counter+=1

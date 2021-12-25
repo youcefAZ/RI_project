@@ -98,8 +98,11 @@ def rsv_dice_coef(idf,doc_num:str,req_words_vector,list_doc):
     res_top = 2 *res_top
 
     result = res_top / ( res_w_ij2 +res_w_iq2 )
-
-    return result
+    if result >0.1:
+        return result
+    
+    return None
+    
 
 
 def rsv_cosinus(idf,doc_num:str,req_words_vector, list_doc):
@@ -174,5 +177,10 @@ def rsv_jaccard(idf,doc_num:str,req_words_vector,list_doc):
     res_down = res_w_ij2 + res_w_iq2 - res_top
 
     result = res_top / res_down
-    return result
+    
+    if result<0.1 and result>0:
+        return result
+    
+    return None
+   
 
