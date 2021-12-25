@@ -14,27 +14,11 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <widget class="QPushButton" name="search_btn">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>30</y>
-      <width>221</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Search by term</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button1_2">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>120</y>
+      <x>80</x>
+      <y>180</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -43,64 +27,162 @@
      <string>Search</string>
     </property>
    </widget>
-   <widget class="QTableView" name="tableView">
+   <widget class="QRadioButton" name="vectorielle_radio">
     <property name="geometry">
      <rect>
-      <x>65</x>
-      <y>250</y>
-      <width>541</width>
+      <x>520</x>
+      <y>20</y>
+      <width>95</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Vectorielle</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="boolean_radio">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>50</y>
+      <width>109</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Boolen</string>
+    </property>
+   </widget>
+   <widget class="QSplitter" name="splitter">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>240</y>
+      <width>271</width>
       <height>261</height>
      </rect>
     </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Results (list docment)</string>
+     </property>
+    </widget>
+    <widget class="QTextBrowser" name="document_result_field"/>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>76</y>
+      <x>290</x>
+      <y>20</y>
+      <width>191</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="func_chs_label">
+       <property name="text">
+        <string>Choose function</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="function_chs_cbx">
+       <item>
+        <property name="text">
+         <string>Inner product</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Cosinus</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Jaccard</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Dice coef</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>110</y>
+      <width>291</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QLabel" name="precision_lbl">
+       <property name="text">
+        <string>Precision</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="precision_field"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>300</y>
+      <width>291</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLabel" name="recall_lbl">
+       <property name="text">
+        <string>Rapelle</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="recall_field"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
       <width>221</width>
-      <height>31</height>
+      <height>61</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>80</y>
-      <width>221</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>30</y>
-      <width>221</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Search by document</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button1_3">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>120</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Search</string>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="search_label">
+       <property name="text">
+        <string>Search </string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="search_field"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -112,14 +194,25 @@
      <height>24</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuMain">
+   <widget class="QMenu" name="menuinfo">
     <property name="title">
-     <string>Main</string>
+     <string>Help</string>
     </property>
+    <addaction name="action_About"/>
    </widget>
-   <addaction name="menuMain"/>
+   <addaction name="menuinfo"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="hel">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

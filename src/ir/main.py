@@ -1,10 +1,13 @@
-import tp
 import math
 import copy
 import json 
-from boolean_model import *
+from ir  import utilities,main,boolean_model,vectorial_model,tp
+"""from boolean_model import *
+from tp import *
 from vectorial_model import *
 from utilities import *
+"""
+
 
 stopwordsfile='stopwords/stopwords_eng.txt'
 datapath='data/cacm.all'

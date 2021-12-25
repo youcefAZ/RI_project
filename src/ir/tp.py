@@ -132,7 +132,7 @@ def get_weighted_doc_list(weighted_list, term):
     return doc_list
 
 
-
+"""
 if __name__ == "__main__":
     #poids(ti, dj) = (freq(ti,dj)/Max(freq(t, dj))*Log((N/ni) +1)
     freq=all_freq(3)
@@ -142,5 +142,5 @@ if __name__ == "__main__":
 
     print(get_weighted_term_list(wt,2))
     print(get_weighted_doc_list(wt,'préparation'))
-    
+""" 
 
