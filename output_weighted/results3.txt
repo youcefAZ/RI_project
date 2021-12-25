@@ -1,0 +1,9 @@
+Threshold : 0.1    mean precision/recall : {0.0286383019820852, 0.5875928837950931}
+Threshold : 0.2    mean precision/recall : {0.05336339067894842, 0.42124222968782826}
+Threshold : 0.30000000000000004    mean precision/recall : {0.0752832520366468, 0.28430027507878247}
+Threshold : 0.4    mean precision/recall : {0.09160677419930732, 0.12960095241634687}
+Threshold : 0.5    mean precision/recall : {0.12422599102286604, 0.06767734519353465}
+Threshold : 0.6    mean precision/recall : {0.08348214285714287, 0.037201558522123035}
+Threshold : 0.7000000000000001    mean precision/recall : {0.03125, 0.0018668831168831169}
+Threshold : 0.8    mean precision/recall : {0.03125, 0.0018668831168831169}
+Threshold : 0.9    mean precision/recall : {0.0}

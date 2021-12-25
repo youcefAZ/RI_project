@@ -191,8 +191,8 @@ def main():
     doc=read_data()
     list_doc=tokenization(doc)
     idf_list=idf(list_doc)
-    #idf_clone = copy.deepcopy(idf_list)
-    #weighted_idf=idf_ponderation(idf_clone,list_doc)
+    idf_clone = copy.deepcopy(idf_list)
+    weighted_idf=idf_ponderation(idf_clone,list_doc)
 
     #print(list_doc)
     #print('----------------\n'*5,print_dico(idf_list))
@@ -205,7 +205,7 @@ def main():
     #print('RESULTAT : ',rsv)
     #print('PERTINENT DOCS : ',pertinent_list[10])
     
-    multi_test(request_list,idf_list,list_doc,pertinent_list)
+    multi_test(request_list,weighted_idf,list_doc,pertinent_list)
 
 if __name__ == '__main__':
     main()

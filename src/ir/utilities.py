@@ -24,7 +24,7 @@ def savePkl(objname,filename,pathsave):
 
 
 def output_results(type,results):
-    f = open("output/results"+str(type)+".txt", "w")
+    f = open("output_weighted/results"+str(type)+".txt", "w")
     for element in results.keys():
         f.write('Threshold : '+str(element)+'    mean precision/recall : '+str(results[element])+'\n')
     
