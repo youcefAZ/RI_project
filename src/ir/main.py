@@ -156,6 +156,36 @@ def idf_ponderation(idf_list,list_doc):
     return idf_list
 
 
+def multi_test(request_list,idf_list,list_doc,pertinent_list):
+    results={}
+
+    threshold_tests={}
+    threshold_tests[1]=list(np.arange(1,13,1))
+    threshold_tests[2]=list(np.arange(0.1,1,0.1))
+    threshold_tests[3]=list(np.arange(0.1,1,0.1))
+    threshold_tests[4]=list(np.arange(0.1,1,0.1))
+    
+    for i in range(1,5):
+        print('TYPE : ',i)
+        for threshold in threshold_tests[i]:
+            print('THRESHOLD : ', threshold)
+            mean_precision=0
+            mean_recall=0
+            for j in range(1,len(request_list)+1):
+                print('REQUEST : ',j)
+                try :
+                    rsv=vectorial_model(idf_list,list_doc,request_list[j],i,threshold)
+                    mean_precision+=precision(pertinent_list[j],rsv.keys())
+                    mean_recall+=recall(pertinent_list[j],rsv.keys())
+                except Exception:
+                    pass
+            
+            results[threshold]={mean_precision/len(request_list),mean_recall/len(request_list)}
+
+        output_results(i,results)
+        results.clear()
+
+
 
 def main():
     doc=read_data()
@@ -171,13 +201,11 @@ def main():
 
     request_list=read_query()
     pertinent_list=read_qrels()
-    rsv=vectorial_model(idf_list,list_doc,request_list[10],4)
     
-    print('RESULTAT : ',rsv)
-    print('PERTINENT DOCS : ',pertinent_list[10])
-    print('PRECISION : ',precision(pertinent_list[10],rsv.keys()))
-    print('RECALL : ',recall(pertinent_list[10],rsv.keys()))
-    #for request 1, best threshold is > 11
+    #print('RESULTAT : ',rsv)
+    #print('PERTINENT DOCS : ',pertinent_list[10])
+    
+    multi_test(request_list,idf_list,list_doc,pertinent_list)
 
 if __name__ == '__main__':
     main()

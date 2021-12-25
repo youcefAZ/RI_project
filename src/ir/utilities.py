@@ -1,6 +1,7 @@
 """Some Useful functions."""
 import pickle
 import json
+import numpy as np
 
 
 def print_dico(dico):
@@ -20,3 +21,10 @@ def savePkl(objname,filename,pathsave):
     with  open(pathsave+filename,"wb") as file:
         pickle.dump(objname,file,pickle.HIGHEST_PROTOCOL)
 
+
+
+def output_results(type,results):
+    f = open("output/results"+str(type)+".txt", "w")
+    for element in results.keys():
+        f.write('Threshold : '+str(element)+'    mean precision/recall : '+str(results[element])+'\n')
+    

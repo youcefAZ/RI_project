@@ -1,12 +1,13 @@
 import math
 """All the functions related to the vectorial Model."""
 
-def vectorial_model(idf, list_doc, request_list:str, func_sim) :
+def vectorial_model(idf, list_doc, request_list:str, func_sim,threshold) :
     """TODO: implemnt this!
 
     Keyword arguments:
         idf             --  {word: {document_it_appears_in : num_occurences_in_this_doc,..},{},...}   (contains all the words!)
         liste_doc       --  {doc_id:{word:occurence},doc_id:{word:occurence_in_doc} }  
+        threshold       --  threshold used in sim_functions  
 
     Returns:
         dictionnay {doc_num:{rsv_func:value_of_rsv},..}
@@ -24,13 +25,13 @@ def vectorial_model(idf, list_doc, request_list:str, func_sim) :
 
         # here we can call one of the functions to compute rsv
         if func_sim==1:
-            res = rsv_produit_interne(idf, str(i) , req_words_vector)
+            res = rsv_produit_interne(idf, str(i) , req_words_vector,threshold)
         elif func_sim==2:
-            res = rsv_dice_coef(idf, str(i) , req_words_vector,list_doc)
+            res = rsv_dice_coef(idf, str(i) , req_words_vector,list_doc,threshold)
         elif func_sim==3:
-            res = rsv_cosinus(idf, str(i) , req_words_vector,list_doc)
+            res = rsv_cosinus(idf, str(i) , req_words_vector,list_doc,threshold)
         else:
-            res = rsv_jaccard(idf, str(i) , req_words_vector,list_doc)
+            res = rsv_jaccard(idf, str(i) , req_words_vector,list_doc,threshold)
         
         if res != None:
             results[i]= res
@@ -40,7 +41,7 @@ def vectorial_model(idf, list_doc, request_list:str, func_sim) :
     return results
 
 
-def rsv_produit_interne(idf,doc_num:str,req_words_vector):
+def rsv_produit_interne(idf,doc_num:str,req_words_vector,threshold):
     """Inner product rsv compute.
 
     Keyword arguments:
@@ -62,13 +63,13 @@ def rsv_produit_interne(idf,doc_num:str,req_words_vector):
         
         res = res + w_i_j * w_i_q
 
-    if res > 0:
+    if res >= threshold:
         return res
     else :
         return None
 
 
-def rsv_dice_coef(idf,doc_num:str,req_words_vector,list_doc):
+def rsv_dice_coef(idf,doc_num:str,req_words_vector,list_doc,threshold):
     """dice coef rsv compute.
 
     Keyword arguments:
@@ -98,14 +99,14 @@ def rsv_dice_coef(idf,doc_num:str,req_words_vector,list_doc):
     res_top = 2 *res_top
 
     result = res_top / ( res_w_ij2 +res_w_iq2 )
-    if result >0.1:
+    if result >threshold:
         return result
     
     return None
     
 
 
-def rsv_cosinus(idf,doc_num:str,req_words_vector, list_doc):
+def rsv_cosinus(idf,doc_num:str,req_words_vector, list_doc,threshold):
     """cosinus rsv compute.
 
     Keyword arguments:
@@ -138,14 +139,14 @@ def rsv_cosinus(idf,doc_num:str,req_words_vector, list_doc):
     
     res_down = math.sqrt( res_w_ij2  * res_w_iq2 )
     result = res_top / res_down
-    if result >=0.3 :
+    if result >=threshold :
         return result
     else:
         return None
     
 
 
-def rsv_jaccard(idf,doc_num:str,req_words_vector,list_doc):
+def rsv_jaccard(idf,doc_num:str,req_words_vector,list_doc,threshold):
     """jaccard rsv compute.
 
     Keyword arguments:
@@ -178,7 +179,7 @@ def rsv_jaccard(idf,doc_num:str,req_words_vector,list_doc):
 
     result = res_top / res_down
     
-    if result<0.1 and result>0:
+    if result>threshold:
         return result
     
     return None
