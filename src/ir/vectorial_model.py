@@ -1,6 +1,6 @@
 """All the functions related to the vectorial Model."""
 
-def vectorial_model(idf, list_doc, request:str) :
+def vectorial_model(idf, list_doc, request_list:str) :
     """TODO: implemnt this!
 
     Keyword arguments:
@@ -11,7 +11,6 @@ def vectorial_model(idf, list_doc, request:str) :
         dictionnay {doc_num:{rsv_func:value_of_rsv},..}
 
     """
-    request_list = request.split()
    
     req_words_vector =  {}
     results = {}
