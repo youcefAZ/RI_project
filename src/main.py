@@ -27,10 +27,10 @@ class Window(QMainWindow, Ui_MainWindow):
         self.main_needed()
 
     def main_needed(self):
-
-        """all the objects needed from the main.py in ir ect"""
+        """all the objects needed from the main.py in ir ect."""
         self.doc = main.read_data()
-        print("hay")
+        self.list_doc = main.tokenization(self.doc)
+        self.idf_list = main.idf(self.list_doc) 
 
 
     def connectSignalsSlots(self):
@@ -53,12 +53,18 @@ class Window(QMainWindow, Ui_MainWindow):
             "please write your query before clicking the search button")
         else:
             return False
+
+
     def radio_is_selected(self):
         """
             check if one of the QRadioButton  buttions are selected!
-
             `boolean_radio` or
             `vectorielle_radio`
+
+        Returns:
+            1 : boolean selected
+            2 : vectorielle selected
+            0 : No one selected
         """
         if (self.boolean_radio.isChecked() and self.vectorielle_radio.isChecked()):
             # this is normaly not possible TODO:throw an error
@@ -69,14 +75,12 @@ class Window(QMainWindow, Ui_MainWindow):
             return 2
         else:
             # No button is selected
-            # TODO: prompt  a UI to tell the user to do something!
+            # TODO: prompt an Error instead of a QMessageBox
             QMessageBox.about(self, "Model not selected", 
             "please select one of the moodels boolean or vectorial")
-        self.boolean_radio.isChecked()
-        self.vectorielle_radio.isChecked()
+            return False
 
-        pass
-    
+
     def search(self):
         """TODO:
         What we will do when doing seach
@@ -88,19 +92,25 @@ class Window(QMainWindow, Ui_MainWindow):
 
         """
         query = self.search_field.text()
-        print(self.doc)
-        print(self.boolean_radio)
+        result = ""
         model_selected = self.radio_is_selected()
+
         if (not self.is_empty(query)):
             #TODO check if a QRadioButton is selectioned
-            if(model_selected ==1):
+            if(model_selected ==1):#bool
                 #get the query
-                pass
+                result = boolean_model.boolean_model(query, self.list_doc)
 
+            elif (model_selected ==2):#vect
+                result = vectorial_model(self.idf,self.list_doc,query)
+            else:
+                #TODO: handle bettter!
+                print("ERROR") 
+
+            self.document_result_field.setText(utilities.print_dico(result))
 
         # self.recall_field.setText("gekko") --TO SET A TEXT in a QTextBrowser!
 
-        self.document_result_field.setText("helloo")
 
 
     def findAndReplace(self):

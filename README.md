@@ -9,3 +9,7 @@
 * activate using
 	conda activate env
 
+* generate the .ui file
+	```bash
+	pyuic5 -o src/ui/main_window_ui.py src/ui/main.ui 
+	```
