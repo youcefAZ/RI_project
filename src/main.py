@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import (
 
 from PyQt5.uic import loadUi
 
-from ir  import utilities,main,boolean_model,vectorial_model,tp
+from ir  import utilities,app,boolean_model,vectorial_model,tp
 
 from ui.main_window_ui import Ui_MainWindow
 
@@ -91,7 +91,7 @@ class Window(QMainWindow, Ui_MainWindow):
             1.try to disable or something, the precision and recall and choose function widgets?
         * perform the search using some function from the `boolean_model.py`
         * put the result in `document_result_field` QTableView object.
-
+        TODO: use weightd idf!
         """
         query = self.search_field.text()
         result = ""
@@ -168,14 +168,6 @@ class Window(QMainWindow, Ui_MainWindow):
             "<p>- Youcef Azouaoui</p>"
             "<p>- The help of the guys at RealPython.com</p>",
         )
-
-class FindReplaceDialog(QDialog):
-
-    def __init__(self, parent=None):
-
-        super().__init__(parent)
-
-        loadUi("ui/find_replace.ui", self)
 
 
 if __name__ == "__main__":

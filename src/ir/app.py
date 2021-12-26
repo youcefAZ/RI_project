@@ -1,15 +1,17 @@
+"""All the general components of our app are here."""
 import math
 import copy
 import json 
-from ir  import utilities,main,boolean_model,vectorial_model,tp
+from ir  import utilities,app,boolean_model,vectorial_model,tp
 """
+import traceback
+import logging
 from utilities import *
 from tp import * 
 from vectorial_model import *
 from boolean_model  import *
 from evaluation import *
 """
-
 stopwordsfile='stopwords/stopwords_eng.txt'
 datapath='data/cacm.all'
 stopword_list=open(stopwordsfile, "r", encoding="utf-8").read().splitlines()
@@ -135,7 +137,7 @@ def max_freq(dj):
 
 
 def idf_ponderation(idf_list,list_doc):
-    """Create weighted td-idf, using the formula given in part 3.
+    """Create weighted tf-idf, using the formula given in part 3.
 
     Keyword arguments:
         idf_list    -- { word: {document_it_appears_in : num_occurences_in_this_doc},..}
@@ -160,6 +162,18 @@ def idf_ponderation(idf_list,list_doc):
 
 
 def multi_test(request_list,idf_list,list_doc,pertinent_list):
+    """
+
+    Keyword arguments:
+        request_list    -- { "query_number" :  {"word_in_qury":num_of_occurences,"word_i_q":num_oc,...}, ... }
+        idf_list        -- { word: {document_it_appears_in : num_occurences_in_this_doc},..} (can be the weighted one)
+        list_doc        -- {doc_id:{word:occurence,word2:occ2},doc_id:{word:occurence_in_doc},... }
+        pertinent_list  -- { "query_number":[list, of, pertinent,document],...}
+
+    Returns:
+
+
+    """
     results={}
 
     threshold_tests={}
@@ -167,24 +181,28 @@ def multi_test(request_list,idf_list,list_doc,pertinent_list):
     threshold_tests[2]=list(np.arange(0.1,1,0.1))
     threshold_tests[3]=list(np.arange(0.1,1,0.1))
     threshold_tests[4]=list(np.arange(0.1,1,0.1))
-    
     for i in range(1,5):
-        print('TYPE : ',i)
-        for threshold in threshold_tests[i]:
+        print('TYPE : ',i) # the rsv function 
+        for threshold in threshold_tests[i]: # test all the threasholds for that rsv function
             print('THRESHOLD : ', threshold)
             mean_precision=0
             mean_recall=0
-            for j in range(1,len(request_list)+1):
-                print('REQUEST : ',j)
+            for j in range(1,len(request_list)+1): # test all the requests!
+                #print('REQUEST : ',j)
                 try :
-                    rsv=vectorial_model(idf_list,list_doc,request_list[j],i,threshold)
-                    mean_precision+=precision(pertinent_list[j],rsv.keys())
-                    mean_recall+=recall(pertinent_list[j],rsv.keys())
-                except Exception:
-                    pass
+                    pertinent_docs =pertinent_list[j] 
+                except Exception as e:#TODO: fix this!!
+                    # the exception is made for the request that don't have any pertinent doc
+                    # so we can't campute the precision and recall of those
+                    print("WARNING: the pertinent list of query number: ",j," doesn't exist,\n \
+                            therefore we can't comute percision and recall for them")
+                    continue
+                rsv=vectorial_model(idf_list,list_doc,request_list[j],i,threshold)
+                import pdb;pdb.set_trace()
+                mean_precision+=precision(pertinent_docs,rsv.keys())
+                mean_recall+=recall(pertinent_docs,rsv.keys())
             
             results[threshold]={mean_precision/len(request_list),mean_recall/len(request_list)}
-
         output_results(i,results)
         results.clear()
 

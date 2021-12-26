@@ -47,8 +47,15 @@ def read_query() :
 
 
 def read_qrels():
-    '''
-    returns pertinent documents for every request
+    '''returns pertinent documents for every request.
+
+    Returns: 
+       pertinent_term_in_request -- { "query_number":[list, of, pertinent,document],...}
+            
+    Note:
+        pertinent_term_in_request[i]: list of pertinent doc
+        request_list[i]= words of request number i
+
     '''
     pertinent_terms_in_request={}
     init_list=[]
@@ -73,6 +80,10 @@ def read_qrels():
             
 
 def precision(pertinent_docs, selected_docs):
+    """
+        selected_docs   -- [list, of, document, returned, by, vectorial](predicted!! by a model(vectoriel))
+        pertinent_docs  -- [list, of, pertinent,doc, umens]
+    """
     counter=0 #pertinent_selected_docs
     if len(selected_docs)==0:
         return 0
@@ -85,6 +96,10 @@ def precision(pertinent_docs, selected_docs):
 
 
 def recall(pertinent_docs,selected_docs):
+    """
+        selected_docs   -- [list, of, document, returned, by, vectorial](predicted!! by a model(vectoriel))
+        pertinent_docs  -- [list, of, pertinent,doc, umens]
+    """
     counter=0 #pertinent_selected_docs
     if len(pertinent_docs)==0:
         return 0

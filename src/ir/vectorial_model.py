@@ -2,7 +2,7 @@ import math
 """All the functions related to the vectorial Model."""
 
 def vectorial_model(idf, list_doc, request_list:str, func_sim,threshold) :
-    """TODO: use weightd idf!
+    """
 
     Keyword arguments:
         idf             --  can be the weighted idf or the normal one{word: {document_it_appears_in : num_occurences_in_this_doc,..},{},...}   (contains all the words!)
@@ -11,9 +11,9 @@ def vectorial_model(idf, list_doc, request_list:str, func_sim,threshold) :
         func_sim        --  which function we want to compute the rsv with
         threshold       --  threshold used in sim_functions  
 
+
     Returns:
         dictionnay {doc_num:{rsv_func:value_of_rsv},..}
-
     """
    
     req_words_vector =  {}
@@ -50,12 +50,13 @@ def rsv_produit_interne(idf,doc_num:str,req_words_vector,threshold):
         idf                 --  {word: {document_it_appears_in : num_occurences_in_this_doc,..},{},...}   (contains all the words!)
         doc_num             --  document number (or id) 
         req_words_vector    --  {word:1} (containt only words that exists!)
+        threshold           --  float: 
 
     Returns:
         inner_product rsv.
     """
     res = 0
-    for i in req_words_vector.keys(): #parcourir les mots du request seulement qui appartiennent au doc
+    for i in req_words_vector.keys(): #parcourir les mots de request seulement qui appartiennent au doc
         w_i_q = req_words_vector[i]
 
         if (doc_num in idf[i].keys()):
@@ -78,6 +79,8 @@ def rsv_dice_coef(idf,doc_num:str,req_words_vector,list_doc,threshold):
         idf                 --  {word: {document_it_appears_in : num_occurences_in_this_doc,..},{},...}   (contains all the words!)
         doc_num             --  document number (or id) 
         req_words_vector    --  {word:1} (containt only words that exists!)
+        liste_doc           --  {doc_id:{word:occurence},doc_id:{word:occurence_in_doc} }  
+        threashold          --  float:
 
     Returns:
         dice coef rsv.
