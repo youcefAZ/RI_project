@@ -23,6 +23,25 @@ def savePkl(objname,filename,pathsave):
 
 
 
+def check_pickle(pickle_name,path_pick= "pickle/"):
+    """create the pickle file if it doesn't exist
+    
+    Returns: 
+        False if the files doens't exist (it created the directory)
+        True if the file exists!
+    """
+
+    #path ="/".join(img_path.split("/")[:-1])
+    if not os.path.exists(path_pick):
+        print("path:\"",path_pick,"\"  doesnt exist so we created it")
+        os.makedirs(path_pick)
+
+    if os.path.exists(path_pick+pickle_name):
+        return True
+
+    return False
+
+
 def output_results(type,results):
     f = open("output_weighted/results"+str(type)+".txt", "w")
     for element in results.keys():

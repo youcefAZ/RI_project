@@ -191,14 +191,13 @@ def multi_test(request_list,idf_list,list_doc,pertinent_list):
                 #print('REQUEST : ',j)
                 try :
                     pertinent_docs =pertinent_list[j] 
-                except Exception as e:#TODO: fix this!!
+                except Exception as e:
                     # the exception is made for the request that don't have any pertinent doc
                     # so we can't campute the precision and recall of those
                     print("WARNING: the pertinent list of query number: ",j," doesn't exist,\n \
                             therefore we can't comute percision and recall for them")
                     continue
                 rsv=vectorial_model(idf_list,list_doc,request_list[j],i,threshold)
-                import pdb;pdb.set_trace()
                 mean_precision+=precision(pertinent_docs,rsv.keys())
                 mean_recall+=recall(pertinent_docs,rsv.keys())
             
@@ -207,20 +206,48 @@ def multi_test(request_list,idf_list,list_doc,pertinent_list):
         results.clear()
 
 
+def get_them_all():
+    """
+    create all the the pkl files that we need if they dont exist.
+    """
+
+    pickl_list = ["list_doc.pkl","idf_list.pkl","weighted_idf.pkl", \
+       "request_list.pkl","pertinent_list.pkl"]
+
+    if (not check_pickle("list_doc.pkl")):
+        doc=read_data()
+        list_doc=tokenization(doc)
+        idf_list=idf(list_doc)
+        idf_clone = copy.deepcopy(idf_list)
+        weighted_idf=idf_ponderation(idf_clone,list_doc)
+        request_list=read_query()
+        pertinent_list=read_qrels()
+    """
+    savePkl(idf_list,"idf_list.pkl","pickle/")
+    savePkl(list_doc,"list_doc.pkl","pickle/")
+    savePkl(pertinent_list,"pertinent_list.pkl","pickle/")
+    savePkl(request_list,"request_list.pkl","pickle/")
+    savePkl(weighted_idf,"weighted_idf.pkl","pickle/")
+    """
+
+    for i in range(len(pickl_list)):
+        if (not check_pickle(pickl_list[i] ) ):#if it doesn"t exist create it!
+            #TODO: optimize it's very poorly written
+            doc=read_data()
+            list_doc=tokenization(doc)
+            idf_list=idf(list_doc)
+            idf_clone = copy.deepcopy(idf_list)
+            weighted_idf=idf_ponderation(idf_clone,list_doc)
+            request_list=read_query()
+            pertinent_list=read_qrels()
+            pickle_objects= [list_doc, idf_list, weighted_idf, \
+                request_list, pertinent_list]
+
+            savePkl(pickle_objects[i],pickl_list[i],"pickle/")
+
 
 def main():
-    # TODO:check if the pks's exists otherwise compute!
-    """doc=read_data()
-    list_doc=tokenization(doc)
-    idf_list=idf(list_doc)
-    idf_clone = copy.deepcopy(idf_list)
-    weighted_idf=idf_ponderation(idf_clone,list_doc)
-    savePkl(list_doc,"list_doc.pkl","pickle/")
-    savePkl(list_doc,"idf_list.pkl","pickle/")
-    savePkl(list_doc,"weighted_idf.pkl","pickle/")
-    savePkl(request_list,"request_list.pkl","pickle/")
-    savePkl(pertinent_list,"pertinent_list.pkl","pickle/")
-    """
+    get_them_all()
     list_doc=openPkl('list_doc.pkl','pickle/')
     idf_list=openPkl('idf_list.pkl','pickle/')
     weighted_idf=openPkl('weighted_idf.pkl','pickle/')

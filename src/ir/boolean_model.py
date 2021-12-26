@@ -74,7 +74,7 @@ def boolean_model(request:str,list_doc):
 
     Note:
         The function have been tested on the same request as youcef's(boolean_model0) and had the same result.
-        TODO: take care of non boolean requests!
+        TODO-middle prio-: take care of non boolean requests!
     """
     request = request.lower()
     operator_list={'and','or','not','(',')'} # les operation possible dans le modéle booleen

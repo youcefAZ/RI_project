@@ -1,4 +1,3 @@
-import tp
 import numpy as np
 
 path_query='data/query.text'
