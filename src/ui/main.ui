@@ -98,17 +98,17 @@
        </item>
        <item>
         <property name="text">
+         <string>Dice coef</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Cosinus</string>
         </property>
        </item>
        <item>
         <property name="text">
          <string>Jaccard</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Dice coef</string>
         </property>
        </item>
       </widget>

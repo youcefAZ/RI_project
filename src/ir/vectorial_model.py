@@ -2,11 +2,13 @@ import math
 """All the functions related to the vectorial Model."""
 
 def vectorial_model(idf, list_doc, request_list:str, func_sim,threshold) :
-    """TODO: implemnt this!
+    """TODO: use weightd idf!
 
     Keyword arguments:
-        idf             --  {word: {document_it_appears_in : num_occurences_in_this_doc,..},{},...}   (contains all the words!)
+        idf             --  can be the weighted idf or the normal one{word: {document_it_appears_in : num_occurences_in_this_doc,..},{},...}   (contains all the words!)
         liste_doc       --  {doc_id:{word:occurence},doc_id:{word:occurence_in_doc} }  
+        request_list    --  a request in this form :ex {'articles': 1, 'exist': 1, 'deal': 1, 'tss': 1, 'time': 1, 'sharing': 1, 'system': 2, 'operating': 1, 'ibm': 1, 'computers': 1}
+        func_sim        --  which function we want to compute the rsv with
         threshold       --  threshold used in sim_functions  
 
     Returns:

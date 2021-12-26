@@ -2,13 +2,13 @@ import math
 import copy
 import json 
 from ir  import utilities,main,boolean_model,vectorial_model,tp
-"""from boolean_model import *
-from tp import *
-from vectorial_model import *
-from utilities import *
-from evaluations import *
 """
-
+from utilities import *
+from tp import * 
+from vectorial_model import *
+from boolean_model  import *
+from evaluation import *
+"""
 
 stopwordsfile='stopwords/stopwords_eng.txt'
 datapath='data/cacm.all'
@@ -191,15 +191,22 @@ def multi_test(request_list,idf_list,list_doc,pertinent_list):
 
 
 def main():
-    '''doc=read_data()
+    # TODO:check if the pks's exists otherwise compute!
+    """doc=read_data()
     list_doc=tokenization(doc)
     idf_list=idf(list_doc)
     idf_clone = copy.deepcopy(idf_list)
     weighted_idf=idf_ponderation(idf_clone,list_doc)
-    '''
+    savePkl(list_doc,"list_doc.pkl","pickle/")
+    savePkl(list_doc,"idf_list.pkl","pickle/")
+    savePkl(list_doc,"weighted_idf.pkl","pickle/")
+    savePkl(request_list,"request_list.pkl","pickle/")
+    savePkl(pertinent_list,"pertinent_list.pkl","pickle/")
+    """
     list_doc=openPkl('list_doc.pkl','pickle/')
     idf_list=openPkl('idf_list.pkl','pickle/')
     weighted_idf=openPkl('weighted_idf.pkl','pickle/')
+    
     #print(list_doc)
     #print('----------------\n'*5,print_dico(idf_list))
     #print('----------------\n',print_dico(weighted_idf))

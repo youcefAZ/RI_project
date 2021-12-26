@@ -27,10 +27,12 @@ class Window(QMainWindow, Ui_MainWindow):
         self.main_needed()
 
     def main_needed(self):
-        """all the objects needed from the main.py in ir ect."""
-        self.doc = main.read_data()
-        self.list_doc = main.tokenization(self.doc)
-        self.idf_list = main.idf(self.list_doc) 
+        """all the objects needed from the main.py in ir ect.
+        TODO:check if the files exists in pickle/ folder and create them
+        if not"""
+        self.list_doc = utilities.openPkl("list_doc.pkl","pickle/")
+        self.idf_list = utilities.openPkl("idf_list.pkl","pickle/")
+        self.weighted_idf = utilities.openPkl("weighted_idf.pkl","pickle/")
 
 
     def connectSignalsSlots(self):
@@ -94,7 +96,6 @@ class Window(QMainWindow, Ui_MainWindow):
         query = self.search_field.text()
         result = ""
         model_selected = self.radio_is_selected()
-
         if (not self.is_empty(query)):
             #TODO check if a QRadioButton is selectioned
             if(model_selected ==1):#bool
@@ -102,7 +103,11 @@ class Window(QMainWindow, Ui_MainWindow):
                 result = boolean_model.boolean_model(query, self.list_doc)
 
             elif (model_selected ==2):#vect
-                result = vectorial_model(self.idf,self.list_doc,query)
+                # tokenize and do the things to the query
+                query = self.get_query(query)
+                rsv_func = self.get_rsv_function()
+                result = vectorial_model.vectorial_model(self.idf_list,self.list_doc,query,rsv_func,0)
+                #TODO choisir fonction
             else:
                 #TODO: handle bettter!
                 print("ERROR") 
@@ -111,7 +116,40 @@ class Window(QMainWindow, Ui_MainWindow):
 
         # self.recall_field.setText("gekko") --TO SET A TEXT in a QTextBrowser!
 
+    def get_rsv_function(self):
+        """get the rsv choosen, the default is 1"""
+        if (self.function_chs_cbx.currentText() =="Inner product"):
+            return 1
+        elif (self.function_chs_cbx.currentText() =="Dice coef"):
+            return 2
+        elif (self.function_chs_cbx.currentText() =="Cosinus"): 
+            return 3
+        elif (self.function_chs_cbx.currentText() =="Jaccard"):
+            return 4
+        else:
+            exit("ERROR IN COMBOBOX")
+        
 
+
+    def get_query(self,query):
+        """if the input is a number between 1 and 64
+        then we will take the file from qrels
+        otherwise we will do the tokenization thing and return it.
+        """
+        try:
+            if int(query) >0 and int(query) <65: #TODO:make sure it's the right number
+                request_list = utilities.openPkl("request_list.pkl","pickle/")
+                query = request_list[int(query)]
+                #pertinent_list = utilities.openPkl("pertinent_list.pkl","pickle/")
+            else:
+                query = tp.Stopword_elimination(query)
+                query =tp.dict_freq(query)
+
+
+        except:
+                query = tp.Stopword_elimination(query)
+                query =tp.dict_freq(query)
+        return query 
 
     def findAndReplace(self):
 
@@ -130,40 +168,6 @@ class Window(QMainWindow, Ui_MainWindow):
             "<p>- Youcef Azouaoui</p>"
             "<p>- The help of the guys at RealPython.com</p>",
         )
-
-"""
-class TableModel(QAbstractTableModel):
-    # TODO:get it , it's raouf's shit
-
-    def __init__(self, data, header):
-        super(TableModel, self).__init__()
-        self._data = data
-        self._header = header
-
-    def data(self, index, role):
-        if role == Qt.DisplayRole:
-            # See below for the nested-list data structure.
-            # .row() indexes into the outer list,
-            # .column() indexes into the sub-list
-            
-            return self._data[index.row()][index.column()]
-
-    def headerData(self, section, orientation, role=Qt.DisplayRole):
-        if role == Qt.DisplayRole and orientation == Qt.Horizontal:
-            return self._header[section]
-        return QAbstractTableModel.headerData(self, section, orientation, role)
-
-    def rowCount(self, index):
-        # The length of the outer list.
-        return len(self._data)
-
-    def columnCount(self, index):
-        # The following takes the first sub-list, and returns
-        # the length (only works if all rows are an equal length)
-        return len(self._data[0])
-
-
-"""
 
 class FindReplaceDialog(QDialog):
 

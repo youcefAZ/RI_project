@@ -8,7 +8,16 @@ def read_query() :
     '''
     Read requests from query.text, we only get the .W
     returns request list : request_list
-        request_list[i]= words of request numero i
+    
+    Returns: 
+       request_list -- { "query_number"
+                            {"word_in_qury":num_of_occurences,
+                            "word_i_q":num_oc,...
+                            }
+                        }
+            
+    Note:
+        request_list[i]= words of request number i
     '''
     res=''
     request_list={}
