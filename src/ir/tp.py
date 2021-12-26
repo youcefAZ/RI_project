@@ -1,7 +1,7 @@
 import math
 
 # ouverture du fichier stopwords_fr
-stopwordsfile = "stopwords/stopwords_eng.txt"
+stopwordsfile = "data/common_words"
 path='files'
 # Récupération de la liste des mots vides
 stopwords_list = open(stopwordsfile, "r", encoding="utf-8").read().splitlines()

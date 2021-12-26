@@ -6,6 +6,7 @@ from boolean_model import *
 from vectorial_model import *
 from utilities import *
 from evaluation import *
+from plots import *
 
 stopwordsfile='stopwords/stopwords_eng.txt'
 datapath='data/cacm.all'
@@ -160,10 +161,10 @@ def multi_test(request_list,idf_list,list_doc,pertinent_list):
     results={}
 
     threshold_tests={}
-    threshold_tests[1]=list(np.arange(1,13,1))
-    threshold_tests[2]=list(np.arange(0.1,1,0.1))
-    threshold_tests[3]=list(np.arange(0.1,1,0.1))
-    threshold_tests[4]=list(np.arange(0.1,1,0.1))
+    threshold_tests[1]=list(np.arange(2,4,0.1))
+    threshold_tests[2]=list(np.arange(0.3,0.46,0.01))
+    threshold_tests[3]=list(np.arange(0.4,0.56,0.01))
+    threshold_tests[4]=list(np.arange(0.02,0.22,0.01))
     
     for i in range(1,5):
         print('TYPE : ',i)
@@ -180,7 +181,7 @@ def multi_test(request_list,idf_list,list_doc,pertinent_list):
                 except Exception:
                     pass
             
-            results[threshold]={mean_precision/len(request_list),mean_recall/len(request_list)}
+            results[threshold]={mean_precision/(len(request_list)-12),mean_recall/(len(request_list)-12)}
 
         output_results(i,results)
         results.clear()
@@ -209,6 +210,16 @@ def main():
     #print('PERTINENT DOCS : ',pertinent_list[10])
     
     multi_test(request_list,weighted_idf,list_doc,pertinent_list)
+    '''rsv=vectorial_model(weighted_idf,list_doc,request_list[10],3,0.53)
+    print(precision(pertinent_list[10],rsv.keys()))
+    print(recall(pertinent_list[10],rsv.keys()))'''
+    #plot_request(pertinent_list,weighted_idf,list_doc,request_list)
+    '''request='i have something every day like ibm'
+    new_req=tp.Stopword_elimination(request)
+    new_req=tp.dict_freq(new_req)
+    rsv=vectorial_model(weighted_idf,list_doc,new_req,4,0.2)
+    print(rsv)'''
+    
 
 if __name__ == '__main__':
     main()
