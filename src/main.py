@@ -32,7 +32,7 @@ class Window(QMainWindow, Ui_MainWindow):
         
         Note: 
             TODO: we can optimize this i think """
-
+        print(app)
         app.get_them_all()
         self.list_doc = utilities.openPkl("list_doc.pkl","pickle/")
         self.idf_list = utilities.openPkl("idf_list.pkl","pickle/")
@@ -84,6 +84,7 @@ class Window(QMainWindow, Ui_MainWindow):
             "please select one of the moodels boolean or vectorial")
             return False
 
+
     def search_by_query(self):
         """
         """
@@ -117,7 +118,10 @@ class Window(QMainWindow, Ui_MainWindow):
             QMessageBox.about(self, "Operation not allowed!", 
                     "please select a the vectorial model before searching by queries")
 
+        result = app.get_sort_result(result)
         self.document_result_field.setText(utilities.print_dico(result))
+
+
 
     def get_pertinent_list(self):
         query_selected = self.query_select_box.text()
@@ -169,8 +173,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 print("ERROR") 
                 return
 
-
-            # TODO: print them by the priority?? (best score)
+            result = app.get_sort_result(result)
             self.document_result_field.setText(utilities.print_dico(result))
 
         # self.recall_field.setText("gekko") --TO SET A TEXT in a QTextBrowser!
@@ -250,10 +253,10 @@ class Window(QMainWindow, Ui_MainWindow):
 
 if __name__ == "__main__":
 
-    app = QApplication(sys.argv)
+    appli = QApplication(sys.argv)
 
     win = Window()
 
     win.show()
 
-    sys.exit(app.exec())
+    sys.exit(appli.exec())

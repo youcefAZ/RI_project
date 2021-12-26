@@ -2,7 +2,7 @@
 import pickle
 import json
 import numpy as np
-
+import os
 
 def print_dico(dico):
     """Print any dictionary in a json way(more beautiful manner)."""

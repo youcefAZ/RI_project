@@ -214,7 +214,7 @@ def get_them_all():
     pickl_list = ["list_doc.pkl","idf_list.pkl","weighted_idf.pkl", \
        "request_list.pkl","pertinent_list.pkl"]
 
-    if (not check_pickle("list_doc.pkl")):
+    if (not utilities.check_pickle("list_doc.pkl")):
         doc=read_data()
         list_doc=tokenization(doc)
         idf_list=idf(list_doc)
@@ -231,7 +231,7 @@ def get_them_all():
     """
 
     for i in range(len(pickl_list)):
-        if (not check_pickle(pickl_list[i] ) ):#if it doesn"t exist create it!
+        if (not utilities.check_pickle(pickl_list[i] ) ):#if it doesn"t exist create it!
             #TODO: optimize it's very poorly written
             doc=read_data()
             list_doc=tokenization(doc)
@@ -243,7 +243,22 @@ def get_them_all():
             pickle_objects= [list_doc, idf_list, weighted_idf, \
                 request_list, pertinent_list]
 
-            savePkl(pickle_objects[i],pickl_list[i],"pickle/")
+            utilities.savePkl(pickle_objects[i],pickl_list[i],"pickle/")
+
+
+def get_sort_result(results):
+    """Get a sorted results dictionnary.
+    
+    Keyword arguments:
+        results     -- dictionnay {doc_num:selected_rsv_func_value_for_doc , ...}
+
+    Returns:
+        results dictionnary sorted by values.
+    """
+    results = sorted(results.items(), key=lambda x:x[1],reverse=True)
+    sortdict = dict(results)
+    return sortdict
+
 
 
 def main():

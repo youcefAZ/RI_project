@@ -13,7 +13,7 @@ def vectorial_model(idf, list_doc, request_list:str, func_sim,threshold) :
 
 
     Returns:
-        dictionnay {doc_num:{rsv_func:value_of_rsv},..}
+        dictionnay {doc_num:selected_rsv_func_value_for_doc , ...}
     """
    
     req_words_vector =  {}
