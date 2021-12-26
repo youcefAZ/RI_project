@@ -88,11 +88,12 @@ def boolean_model(request:str,list_doc):
                 termes_in_doc[term] = "True"
 
             elif term in operator_list:
+                # the error is that, it's the or doesnt print twice because it's a dictionary!
                 termes_in_doc[term] = 0
 
             else: 
                 termes_in_doc[term] = "False"
-
+        
         str_logic = create_boolean_request(termes_in_doc)
         if rsv_boolean(str_logic):
             #add to pertinent 

@@ -32,7 +32,6 @@ class Window(QMainWindow, Ui_MainWindow):
         
         Note: 
             TODO: we can optimize this i think """
-        print(app)
         app.get_them_all()
         self.list_doc = utilities.openPkl("list_doc.pkl","pickle/")
         self.idf_list = utilities.openPkl("idf_list.pkl","pickle/")
@@ -158,6 +157,7 @@ class Window(QMainWindow, Ui_MainWindow):
             #TODO check if a QRadioButton is selectioned
 
             if(model_selected ==1):#bool
+                print(query)
                 result = self.boolean_query(query)
 
 
@@ -167,13 +167,13 @@ class Window(QMainWindow, Ui_MainWindow):
                 query = tp.Stopword_elimination(query)
                 query =tp.dict_freq(query)
 
-                self.vectorial_query(query)
+                result = self.vectorial_query(query)
+                result = app.get_sort_result(result)
             else:
                 #TODO: handle bettter!
                 print("ERROR") 
                 return
 
-            result = app.get_sort_result(result)
             self.document_result_field.setText(utilities.print_dico(result))
 
         # self.recall_field.setText("gekko") --TO SET A TEXT in a QTextBrowser!
