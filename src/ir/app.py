@@ -2,7 +2,7 @@
 import math
 import copy
 import json 
-from ir  import utilities,app,boolean_model,vectorial_model,tp
+from ir  import utilities,app,boolean_model,vectorial_model,tp,plots
 """
 import traceback
 import logging
@@ -11,12 +11,7 @@ from tp import *
 from vectorial_model import *
 from boolean_model  import *
 from evaluation import *
-<<<<<<< HEAD:src/ir/app.py
 """
-=======
-from plots import *
-
->>>>>>> remotes/origin/plot_functions:src/ir/main.py
 stopwordsfile='stopwords/stopwords_eng.txt'
 datapath='data/cacm.all'
 stopword_list=open(stopwordsfile, "r", encoding="utf-8").read().splitlines()
@@ -182,7 +177,6 @@ def multi_test(request_list,idf_list,list_doc,pertinent_list):
     results={}
 
     threshold_tests={}
-<<<<<<< HEAD:src/ir/app.py
     threshold_tests[1]=list(np.arange(1,13,1))
     threshold_tests[2]=list(np.arange(0.1,1,0.1))
     threshold_tests[3]=list(np.arange(0.1,1,0.1))
@@ -207,11 +201,7 @@ def multi_test(request_list,idf_list,list_doc,pertinent_list):
                 mean_precision+=precision(pertinent_docs,rsv.keys())
                 mean_recall+=recall(pertinent_docs,rsv.keys())
             
-            results[threshold]={mean_precision/len(request_list),mean_recall/len(request_list)}
-=======
-            results[threshold]={mean_precision/(len(request_list)-12),mean_recall/(len(request_list)-12)}
-
->>>>>>> remotes/origin/plot_functions:src/ir/main.py
+            results[threshold]={mean_precision/(len(request_list)-12),mean_recall/len(request_list)}
         output_results(i,results)
         results.clear()
 
