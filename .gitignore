@@ -1,8 +1,10 @@
 data/
 files/
 pickle/
-*__pycache__/
+**/__pycache__
 env/
 renv/
 .qt_for_python/
 .vscode/
+output/
+output_weighted/
