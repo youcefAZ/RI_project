@@ -146,8 +146,6 @@ class Window(QMainWindow, Ui_MainWindow):
         * perform the search using some function from the `boolean_model.py`
     
         """
-        print(self.threshold_field.text())
-        print(self.query_select_box.text())
         
         result = ""
         query = self.search_field.text()
@@ -157,9 +155,7 @@ class Window(QMainWindow, Ui_MainWindow):
             #TODO check if a QRadioButton is selectioned
 
             if(model_selected ==1):#bool
-                print(query)
                 result = self.boolean_query(query)
-
 
             elif (model_selected ==2):#vect
 
@@ -225,7 +221,6 @@ class Window(QMainWindow, Ui_MainWindow):
             if int(query_selected) >0 and int(query_selected) <65: 
                 request_list = utilities.openPkl("request_list.pkl","pickle/")
                 query = request_list[int(query_selected)]
-                print("query is:",query)
                 #pertinent_list = utilities.openPkl("pertinent_list.pkl","pickle/")
             else: 
                 QMessageBox.about(self, "Query doesn't exist!", 

@@ -1,5 +1,4 @@
 """All the functions related to the Boolean Model."""
-
 def replace_logical_by_mathematical_operators(request):
     """
 
@@ -40,12 +39,12 @@ def rsv_boolean(logical_oper):
 
 
 def create_boolean_request(list_boolean):
-    """Take a dictionnary of the request with True or False when the term
+    """Take a list  of the request with True or False when the term
         is in the document or not, and 0 when it's a logical operator (or, and, not, "(", ")" )
         And transform it into an str logical formula  that can be evaluated!
 
     Keyword arguments:
-        lilst_boolean       -- example: {"word":"True", "(":0 , "not":0, "zrodiya":Fals",...}
+        lilst_boolean       -- list of tuples example: [("word":"True"), ( "(" , 0) ), ("not", 0), ("zrodiya","False"),...]
 
     Returns:
         str: the logical formula
@@ -53,11 +52,11 @@ def create_boolean_request(list_boolean):
     logical_str_req = ""
     for i in list_boolean:
 
-        if (list_boolean[i] == 0 ):
-            logical_str_req = logical_str_req + " " + str(i)
+        if (i[1] == 0 ):
+            logical_str_req = logical_str_req + " " + str(i[0])
 
         else:
-            logical_str_req = logical_str_req+" "+list_boolean[i]
+            logical_str_req = logical_str_req+" "+ str(i[1])
     
     return logical_str_req
 
@@ -79,20 +78,20 @@ def boolean_model(request:str,list_doc):
     request = request.lower()
     operator_list={'and','or','not','(',')'} # les operation possible dans le modéle booleen
     request_list = request.split() # list des mot de la requete
-    termes_in_doc = {} 
+    termes_in_doc = [] 
     pertinent_docs = []  
 
     for i in range(1,len(list_doc)+1): # parcourir les documents
         for term in request_list: # parcourir liste des mot de la requete
             if term not in operator_list and term in list_doc[str(i)].keys():
-                termes_in_doc[term] = "True"
+                termes_in_doc.append( (term,"True") ) 
 
             elif term in operator_list:
                 # the error is that, it's the or doesnt print twice because it's a dictionary!
-                termes_in_doc[term] = 0
+                termes_in_doc.append ( (term, 0) )
 
             else: 
-                termes_in_doc[term] = "False"
+                termes_in_doc.append( (term , "False") )
         
         str_logic = create_boolean_request(termes_in_doc)
         if rsv_boolean(str_logic):
@@ -141,4 +140,10 @@ def boolean_model0(request:str,list_doc):
         termes_in_doc.clear()
     return pertinent_docs
 
-
+def speed_test():
+    """ just a function to debug the boolean model fast"""
+    #from utilities import *
+    list_doc = openPkl("list_doc.pkl","pickle/")
+    request="something or anything or ibm"
+    a = boolean_model(request, list_doc)
+    print(a)

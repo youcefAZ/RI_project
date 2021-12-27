@@ -1,6 +1,5 @@
 import numpy as np
-from vectorial_model import *
-from evaluation import *
+from ir import vectorial_model,evaluation
 import matplotlib.pyplot as plt
 
 
