@@ -94,16 +94,18 @@ class Window(QMainWindow, Ui_MainWindow):
         if (model_selected == 2): #vect
             query = self.get_query_num()
             pertinent_list_doc = self.get_pertinent_list()
-
-            if query ==None:
+            if query == None:
+                return
+                '''
                 QMessageBox.about(self, "Operation impossible!", 
                     "Please select a query between 1 and 64"
                 )
+                '''
             else:
                 result = self.vectorial_query(query)
 
                 # precision and recall!
-                if pertinent_list_doc != None and query :
+                if pertinent_list_doc != None and query != None :
                     prec = evaluation.precision(pertinent_list_doc, result.keys())
                     recall = evaluation.recall(pertinent_list_doc, result.keys())
                     self.recall_field.setText("%.4f" % recall)
@@ -114,6 +116,7 @@ class Window(QMainWindow, Ui_MainWindow):
                         doesn't exist.\n \
                         Therefore we can't compute percision and recall for them"
                     )
+                    return
         else:
             QMessageBox.about(self, "Operation not allowed!", 
                     "please select a the vectorial model before searching by queries")
@@ -231,7 +234,7 @@ class Window(QMainWindow, Ui_MainWindow):
         except:
             #TODO: handle better
             print("ERROR, in get_query_num")
-            exit()
+            return 
 
         return query 
 
