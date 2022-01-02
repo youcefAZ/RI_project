@@ -86,6 +86,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def search_by_query(self):
         """
+        what do do when the button is clicked!
         """
         #check if it's vectorial
         result = ""
@@ -116,6 +117,7 @@ class Window(QMainWindow, Ui_MainWindow):
         else:
             QMessageBox.about(self, "Operation not allowed!", 
                     "please select a the vectorial model before searching by queries")
+            return
 
         result = app.get_sort_result(result)
         self.document_result_field.setText(utilities.print_dico(result))
