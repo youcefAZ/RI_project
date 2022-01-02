@@ -143,6 +143,24 @@ class Window(QMainWindow, Ui_MainWindow):
             return
         return pertinent_docs
 
+    def check_if_boolean_query(self, query):
+        """The method is very simplistic and can be improved,
+            but it's enough for now.
+        """
+        operator_list={'and','or','not','(',')'} # les operation possible dans le modéle booleen
+        query= query.split()
+        i = 0
+        while (i < len(query) ):
+            if i % 2 == 0: # should not be an operator  
+                if (query[i] in operator_list):
+                    return False
+            else: #should be an operator
+                if (query[i] not in operator_list):
+                    return False
+
+            i+=1
+
+        return True 
 
     def search(self):
         """What we will do when doing seach
@@ -160,8 +178,12 @@ class Window(QMainWindow, Ui_MainWindow):
         if (not self.is_empty(query)):
 
             if(model_selected ==1):#bool
-                result = self.boolean_query(query)
-
+                if (self.check_if_boolean_query(query)):
+                    result = self.boolean_query(query)
+                else:#it's not aboolean 
+                    QMessageBox.about(self, "Not a Boolean Query", 
+                    "please write a boolean query.")
+                    return
             elif (model_selected ==2):#vect
 
                 # tokenize and do the things to the query
