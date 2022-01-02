@@ -52,9 +52,10 @@ class Window(QMainWindow, Ui_MainWindow):
     def is_empty(self,word):
         """Check if a word is empy.and throw an error if it's the case!.
         """
-        if (word==""):
+        if ( (word.isspace()) or (word == "") ):
             QMessageBox.about(self, "Search query is empty", 
             "please write your query before clicking the search button")
+            return True
         else:
             return False
 
@@ -157,7 +158,6 @@ class Window(QMainWindow, Ui_MainWindow):
         model_selected = self.radio_is_selected()
         
         if (not self.is_empty(query)):
-            #TODO check if a QRadioButton is selectioned
 
             if(model_selected ==1):#bool
                 result = self.boolean_query(query)
