@@ -1,4 +1,5 @@
 import numpy as np
+from ir  import tp
 
 path_query='data/query.text'
 path_qrels='data/qrels.text'

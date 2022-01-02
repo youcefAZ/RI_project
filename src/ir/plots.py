@@ -14,8 +14,8 @@ def plotting(pertinent_list,weighted_list,list_doc,request_list) :
             print('REQUEST : ',j)
             try :
                 rsv=vectorial_model(weighted_list,list_doc,request_list[j],3,threshold)
-                mean_precision+=precision(pertinent_list[j],rsv.keys())
-                mean_recall+=recall(pertinent_list[j],rsv.keys())
+                mean_precision+=evaluation.precision(pertinent_list[j],rsv.keys())
+                mean_recall+=evaluation.recall(pertinent_list[j],rsv.keys())
             except Exception:
                 print('EXCEPTION IN ',j)
             
@@ -39,8 +39,8 @@ def plot_request(pertinent_list,weighted_list,list_doc,request_list) :
     for i in request:
         try :
             rsv=vectorial_model(weighted_list,list_doc,request_list[i],3,0.45)
-            precision_list.append(precision(pertinent_list[i],rsv.keys())) 
-            recall_list.append(recall(pertinent_list[i],rsv.keys())) 
+            precision_list.append(evaluation.precision(pertinent_list[i],rsv.keys())) 
+            recall_list.append(evaluation.recall(pertinent_list[i],rsv.keys())) 
         except Exception:
             print('EXCEPTION IN ',i)
             precision_list.append(0)

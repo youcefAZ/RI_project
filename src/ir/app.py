@@ -2,7 +2,7 @@
 import math
 import copy
 import json 
-from ir  import utilities,app,boolean_model,vectorial_model,tp,plots
+from ir  import utilities,app,boolean_model,vectorial_model,tp,plots,evaluation
 """
 import traceback
 import logging
@@ -238,8 +238,8 @@ def get_them_all():
             idf_list=idf(list_doc)
             idf_clone = copy.deepcopy(idf_list)
             weighted_idf=idf_ponderation(idf_clone,list_doc)
-            request_list=read_query()
-            pertinent_list=read_qrels()
+            request_list=evaluation.read_query()
+            pertinent_list=evaluation.read_qrels()
             pickle_objects= [list_doc, idf_list, weighted_idf, \
                 request_list, pertinent_list]
 
